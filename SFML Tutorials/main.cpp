@@ -5,10 +5,10 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
-    Animation animation("Content\\417 13frames 10fps.png", 10, 6, 2);
+    Animation animation("Content\\417 13frames 10fps.png", 5, 7, 2);
 
     sf::RectangleShape gun;
-    gun.setSize(sf::Vector2f(76, 31));
+    gun.setSize(sf::Vector2f(76, 32));
     gun.setTexture(animation.getTexture());
     gun.setTextureRect(animation.getUVRect());
 

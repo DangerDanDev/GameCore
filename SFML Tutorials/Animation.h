@@ -6,7 +6,7 @@
 class Animation
 {
 public:
-	Animation(std::string filePath, float fps, int rows, int cols);
+	Animation(std::string filePath, float fps, int rows, int cols, bool lastFrameEmpty = false);
 
 public:
 	sf::IntRect getUVRect();
