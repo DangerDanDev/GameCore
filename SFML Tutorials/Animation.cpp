@@ -73,14 +73,8 @@ void Animation::nextFrame()
 		this->uvRect.top += this->frameSize.y;
 	}
 
-	//if we've hit the end of the sprite sheet
-	if (uvRect.top >= this->getTexture()->getSize().y)
-	{
-		//then it's time to restart
-		uvRect.top = origin.y;
-		uvRect.left = origin.x;
-		//currentFrame = 0;
-	}
+	if (currentFrame == numFrames)
+		restart();
 
 	cout << "Current Frame: " << currentFrame << endl;
 }

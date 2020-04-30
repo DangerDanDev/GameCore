@@ -5,7 +5,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
-    float fps = 10.f; int frames = 13; int rows = 7; int cols = 2;
+    float fps = 30.f; int frames = 13; int rows = 7; int cols = 2;
     Animation animation("Content\\417 13frames 10fps.png", fps, frames, sf::Vector2i(rows,cols));
 
     sf::RectangleShape gun;
