@@ -30,10 +30,9 @@ Animation::Animation(std::string filePath, float fps, int numFrames, sf::Vector2
 	this->uvRect.width = this->frameSize.x;
 	this->uvRect.height = this->frameSize.y;
 
-	this->restart();
+	cout << "Frame Width: " << frameSize.x << " Frame Height: " << frameSize.y << endl;
 
-	cout << "UVRect dimensions: X: " + uvRect.left << ", Y: " << uvRect.top << ", Width: " << uvRect.width << ", Height: " << uvRect.height << endl;
-	
+	this->restart();
 }
 
 sf::IntRect Animation::getUVRect()
@@ -61,6 +60,11 @@ void Animation::update(float deltaTime)
 	}
 }
 
+const sf::Vector2i Animation::getFrameSize()
+{
+	return this->frameSize;
+}
+
 void Animation::nextFrame()
 {
 	currentFrame++;
@@ -75,8 +79,6 @@ void Animation::nextFrame()
 
 	if (currentFrame == numFrames)
 		restart();
-
-	cout << "Current Frame: " << currentFrame << endl;
 }
 
 void Animation::restart()
@@ -85,4 +87,5 @@ void Animation::restart()
 	uvRect.top = origin.y;
 
 	currentFrame = 0;
+	timeOnFrame = 0;
 }

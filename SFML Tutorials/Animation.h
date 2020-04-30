@@ -15,6 +15,8 @@ public:
 
 	void update(float deltaTime);
 
+	const sf::Vector2i getFrameSize();
+
 private:
 	/////////////////////////
 	// Sets the UV coords to the next frame in the animation
