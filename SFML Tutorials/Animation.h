@@ -6,7 +6,7 @@
 class Animation
 {
 public:
-	Animation(std::string filePath, float fps, int rows, int cols, bool lastFrameEmpty = false);
+	Animation(std::string filePath, float fps,int numFrames, sf::Vector2i rowsByCols);
 
 public:
 	sf::IntRect getUVRect();
@@ -21,6 +21,11 @@ private:
 	/////////////////////////
 	void nextFrame();
 
+	/////////////////////////
+	// Restarts the animation
+	/////////////////////////
+	void restart();
+
 private:
 	////////////////////////
 	// My main texture//////
@@ -31,6 +36,11 @@ private:
 	// Rect representing the coords of my current frame
 	///////////////////////
 	sf::IntRect uvRect;
+
+	///////////////////////
+	// The coordinates  on the sprite sheet where this animation starts
+	///////////////////////
+	sf::Vector2i origin;
 
 	////////////////////////
 	// The width and height of each frame
@@ -46,6 +56,11 @@ private:
 	// Number of animations in the frame
 	////////////////////////
 	int numFrames;
+
+	///////////////////////
+	// the current frame I'm on out of the total number of frames
+	//////////////////////
+	int currentFrame = 0;
 
 	////////////////////////
 	// The number of rows in this animation's sprite sheet
