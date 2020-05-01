@@ -1,7 +1,7 @@
 #include "AnimationBase.h"
 
-AnimationBase::AnimationBase(float fps)
-	: fps(fps), currentFrame(0), timePerFrame(0), numFrames(0)
+AnimationBase::AnimationBase(sf::RectangleShape &sprite, float fps)
+	: sprite(sprite),fps(fps), currentFrame(0), timePerFrame(0), numFrames(0)
 {
 }
 

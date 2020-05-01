@@ -6,15 +6,15 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 
 
-    float fps = 30.f; int frames = 13; int rows = 7; int cols = 2;
-    Animation animation("Content\\417 13frames 10fps.png", fps, frames, sf::Vector2i(rows,cols));
     sf::RectangleShape gun;
+    float fps = 30.f; int frames = 13; int rows = 7; int cols = 2;
+    Animation animation(gun, "Content\\417 13frames 10fps.png", fps, frames, sf::Vector2i(rows,cols));
     gun.setSize(sf::Vector2f(76, 32));
     gun.setTexture(animation.getTexture());
     gun.setTextureRect(animation.getUVRect());
 
-    Animation famasAnim("Content\\FAMAS 10frames 16fps.png", 16.f, 10, sf::Vector2i(5, 2));
     sf::RectangleShape famas;
+    Animation famasAnim(famas, "Content\\FAMAS 10frames 16fps.png", 16.f, 10, sf::Vector2i(5, 2));
     famas.setPosition(300, 300);
     famas.setSize(sf::Vector2f(famasAnim.getFrameSize().x,famasAnim.getFrameSize().y));
     famas.setTexture(famasAnim.getTexture());

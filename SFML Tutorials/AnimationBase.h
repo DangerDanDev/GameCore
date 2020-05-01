@@ -11,7 +11,7 @@
 class AnimationBase
 {
 public:
-	AnimationBase(float fps);
+	AnimationBase(sf::RectangleShape &sprite, float fps);
 
 public:
 	////////////////////////////
@@ -48,6 +48,10 @@ public:
 
 protected:
 
+	////////////////////////////
+	// The entity who is using this animation set
+	////////////////////////////
+	sf::RectangleShape& sprite;
 
 	////////////////////////
 	// Rect representing the UV coords of my current frame

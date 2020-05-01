@@ -3,8 +3,8 @@
 using std::cout;
 using std::endl;
 
-Animation::Animation(std::string filePath, float fps, int numFrames, sf::Vector2i rowsByCols)
-	:AnimationBase(fps)
+Animation::Animation(sf::RectangleShape &sprite, std::string filePath, float fps, int numFrames, sf::Vector2i rowsByCols)
+	:AnimationBase(sprite, fps)
 {
 
 	this->texture.loadFromFile(filePath);
@@ -24,9 +24,6 @@ Animation::Animation(std::string filePath, float fps, int numFrames, sf::Vector2
 
 	//this is my frame size now
 	this->frameSize = sf::Vector2i(frameWidth, frameHeight);
-
-	this->uvRect.left = 0;
-	this->uvRect.top = 0;
 	this->uvRect.width = this->frameSize.x;
 	this->uvRect.height = this->frameSize.y;
 
@@ -69,6 +66,8 @@ void Animation::setFrame(int frame)
 	//finally, utilize our computed texture coords
 	this->uvRect.left = coords.x;
 	this->uvRect.top = coords.y;
+
+	this->sprite.setTextureRect(this->uvRect);
 
 	this->timeOnFrame = 0;
 }

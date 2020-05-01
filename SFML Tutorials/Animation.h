@@ -5,12 +5,13 @@
 #include "AnimationBase.h"
 
 ///////////////////////
-//
+// Base class for the different AnimationSet classes
 ///////////////////////
 class Animation : public AnimationBase
 {
 public:
-	Animation(std::string filePath, float fps,int numFrames, sf::Vector2i rowsByCols);
+	Animation(sf::RectangleShape &sprite, std::string filePath, 
+		float fps,int numFrames, sf::Vector2i rowsByCols);
 
 public:
 
