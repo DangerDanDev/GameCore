@@ -4,11 +4,11 @@ using std::cout;
 using std::endl;
 
 Animation::Animation(std::string filePath, float fps, int numFrames, sf::Vector2i rowsByCols)
+	:AnimationBase(fps)
 {
 
 	this->texture.loadFromFile(filePath);
 	
-	this->fps = fps;
 	this->timePerFrame = 1.f / fps;
 
 	//the number of frames is equal to the number of rows * columns
@@ -35,29 +35,9 @@ Animation::Animation(std::string filePath, float fps, int numFrames, sf::Vector2
 	this->restart();
 }
 
-sf::IntRect Animation::getUVRect()
-{
-	return this->uvRect;
-}
-
 const sf::Texture* Animation::getTexture()
 {
 	return &this->texture;
-}
-
-void Animation::update(float deltaTime)
-{
-	timeOnFrame += deltaTime;
-
-	//if it is time to switch frames
-	if (timeOnFrame >= timePerFrame)
-	{
-		//go to the next frame
-		nextFrame();
-
-		//reset the timer
-		timeOnFrame -= timePerFrame;
-	}
 }
 
 const sf::Vector2i Animation::getFrameSize()
@@ -65,27 +45,30 @@ const sf::Vector2i Animation::getFrameSize()
 	return this->frameSize;
 }
 
-void Animation::nextFrame()
+void Animation::setFrame(int frame)
 {
-	currentFrame++;
-	this->uvRect.left += this->frameSize.x;
+	this->currentFrame = frame;
 
-	//if we've gone off the right side of the sprite sheet
-	if (uvRect.left >= this->getTexture()->getSize().x)
+	sf::Vector2i coords = origin;
+
+	//loop through the texture until we find the UV coords for 
+	//our current frame
+	for (int i = 0; i < frame; i++)
 	{
-		uvRect.left = 0;
-		this->uvRect.top += this->frameSize.y;
+		//shift one animation frame to the right
+		coords.x += this->frameSize.x;
+
+		//if we've gone off the edge, start the next row
+		if (coords.x >= texture.getSize().x)
+		{
+			coords.y += frameSize.y;
+			coords.x = 0;
+		}
 	}
 
-	if (currentFrame == numFrames)
-		restart();
-}
+	//finally, utilize our computed texture coords
+	this->uvRect.left = coords.x;
+	this->uvRect.top = coords.y;
 
-void Animation::restart()
-{
-	uvRect.left = origin.x;
-	uvRect.top = origin.y;
-
-	currentFrame = 0;
-	timeOnFrame = 0;
+	this->timeOnFrame = 0;
 }
