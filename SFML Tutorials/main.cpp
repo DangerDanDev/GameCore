@@ -1,5 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include "Animation.h"
+#include "AnimationList.h"
+
+using std::vector;
+using std::string;
 
 int main()
 {
@@ -20,6 +24,22 @@ int main()
     famas.setTexture(famasAnim.getTexture());
     famas.setTextureRect(famasAnim.getUVRect());
 
+    sf::RectangleShape famasList(sf::Vector2f(65, 32));
+    famasList.setPosition(400, 00);
+    const string FAMAS_0 = "Content\\FAMAS\\FAMAS_0";
+    vector<std::string> famasFiles;
+    famasFiles.push_back(FAMAS_0 + "0.png");
+    famasFiles.push_back(FAMAS_0 + "1.png");
+    famasFiles.push_back(FAMAS_0 + "2.png");
+    famasFiles.push_back(FAMAS_0 + "3.png");
+    famasFiles.push_back(FAMAS_0 + "4.png");
+    famasFiles.push_back(FAMAS_0 + "5.png");
+    famasFiles.push_back(FAMAS_0 + "6.png");
+    famasFiles.push_back(FAMAS_0 + "7.png");
+    famasFiles.push_back(FAMAS_0 + "8.png");
+    famasFiles.push_back(FAMAS_0 + "9.png");
+    AnimationList famasListAnim(famasList, 16.f, famasFiles);
+
     sf::Clock clock;
 
     while (window.isOpen())
@@ -35,13 +55,14 @@ int main()
 
         window.clear(sf::Color::Yellow);
 
-        animation.update(deltaTime);
-        gun.setTextureRect(animation.getUVRect());
-        window.draw(gun);
+        //animation.update(deltaTime);
+        //window.draw(gun);
 
-        famasAnim.update(deltaTime);
-        famas.setTextureRect(famasAnim.getUVRect());
-        window.draw(famas);
+        //famasAnim.update(deltaTime);
+        //window.draw(famas);
+
+        famasListAnim.update(deltaTime);
+        window.draw(famasList);
 
         window.display();
     }

@@ -25,7 +25,7 @@ public:
 	////////////////////////////////
 	const sf::Vector2i getFrameSize();
 
-	virtual void setFrame(int frame);
+	virtual void setFrame(int frame) override;
 
 private:
 	////////////////////////

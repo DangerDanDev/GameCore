@@ -7,9 +7,7 @@ Animation::Animation(sf::RectangleShape &sprite, std::string filePath, float fps
 	:AnimationBase(sprite, fps)
 {
 
-	this->texture.loadFromFile(filePath);
-	
-	this->timePerFrame = 1.f / fps;
+	this->texture = loadFromFile(filePath);
 
 	//the number of frames is equal to the number of rows * columns
 	this->rows = rowsByCols.x;
@@ -44,8 +42,6 @@ const sf::Vector2i Animation::getFrameSize()
 
 void Animation::setFrame(int frame)
 {
-	this->currentFrame = frame;
-
 	sf::Vector2i coords = origin;
 
 	//loop through the texture until we find the UV coords for 
@@ -69,5 +65,5 @@ void Animation::setFrame(int frame)
 
 	this->sprite.setTextureRect(this->uvRect);
 
-	this->timeOnFrame = 0;
+	AnimationBase::setFrame(frame);
 }

@@ -28,8 +28,10 @@ public:
 
 	///////////////////////////
 	// Instructs the animation set to display a specific frame
+	// Sets the currentFrame instance variable--
+	// all other functionality must be done in derived classes
 	//////////////////////////
-	virtual void setFrame(int frame) = 0;
+	virtual void setFrame(int frame);
 
 	////////////////////////////
 	// Goes to the next frame in the animation
@@ -87,5 +89,11 @@ protected:
 	// The time that has been spent thus far on the current frame
 	///////////////////////
 	float timeOnFrame = 0;
+
+	////////////////////////
+	// Loads a texture.
+	// Does not do anything with it, that is for the subclasses to implement.
+	////////////////////////
+	sf::Texture loadFromFile(std::string file);
 };
 
