@@ -5,9 +5,8 @@ using std::cout;
 using std::endl;
 
 AnimationBase::AnimationBase(sf::RectangleShape &sprite, float fps)
-	: sprite(sprite),fps(fps), currentFrame(0), timePerFrame(0), numFrames(0)
+	: sprite(sprite),fps(fps), currentFrame(0), timePerFrame(1.f/fps), numFrames(0)
 {
-	this->timePerFrame = 1.f / fps;
 }
 
 int AnimationBase::getCurrentFrame()

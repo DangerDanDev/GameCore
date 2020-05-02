@@ -15,9 +15,10 @@ Animation::Animation(sf::RectangleShape &sprite, std::string filePath, float fps
 	this->numFrames = numFrames;
 
 	//figure out the size of each frame; it is equal to
-	//the number width of the texture divided by the number of columns
+	//the width of the texture divided by the number of columns
 	int frameWidth = this->texture.getSize().x / this->cols;
-	//times the height of the texture divided by the number of rows
+	//the frame height is the height of the texture divided by the 
+	//number of rows
 	int frameHeight = this->texture.getSize().y / this->rows;
 
 	//this is my frame size now

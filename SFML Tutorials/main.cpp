@@ -53,13 +53,13 @@ int main()
                 window.close();
         }
 
-        window.clear(sf::Color::Yellow);
+        window.clear(sf::Color::Cyan);
 
-        //animation.update(deltaTime);
-        //window.draw(gun);
+        animation.update(deltaTime);
+        window.draw(gun);
 
-        //famasAnim.update(deltaTime);
-        //window.draw(famas);
+        famasAnim.update(deltaTime);
+        window.draw(famas);
 
         famasListAnim.update(deltaTime);
         window.draw(famasList);
