@@ -48,7 +48,6 @@ void AnimationBase::restart()
 
 void AnimationBase::setFrame(int frame)
 {
-	cout << "Going to frame #" << frame << endl;
 	this->currentFrame = frame;
 	this->timeOnFrame = 0;
 }

@@ -38,7 +38,7 @@ int main()
     famasFiles.push_back(FAMAS_0 + "7.png");
     famasFiles.push_back(FAMAS_0 + "8.png");
     famasFiles.push_back(FAMAS_0 + "9.png");
-    AnimationList famasListAnim(famasList, 16.f, famasFiles);
+    AnimationList famasListAnim(famasList, 32.f, famasFiles);
 
     sf::Clock clock;
 
