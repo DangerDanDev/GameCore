@@ -40,8 +40,13 @@ int main()
         player.update(deltaTime);
 
         Collider playerCollider = player.getCollider();
-        platform.getCollider().checkCollision(playerCollider, 0.0f);
-        platform2.getCollider().checkCollision(playerCollider, 1.f);
+        Collider platform1Collider = platform.getCollider();
+        Collider platform2Collider = platform2.getCollider();
+
+        playerCollider.checkCollision(platform1Collider, 1.0f);
+        playerCollider.checkCollision(platform2Collider, 1.0f);
+        //platform.getCollider().checkCollision(playerCollider, 0.0f);
+        //platform2.getCollider().checkCollision(playerCollider, 1.f);
 
         view.setCenter(player.getPosition());
         window.setView(view);
