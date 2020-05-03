@@ -31,7 +31,6 @@ void AnimationBase::update(float deltaTime)
 {
 	timeOnFrame += deltaTime;
 
-	cout << deltaTime << endl;
 
 	//if it is time to switch frames
 	if (timeOnFrame >= timePerFrame)

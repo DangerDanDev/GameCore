@@ -6,10 +6,9 @@ using std::vector;
 
 Player::Player()
 {
-	sf::RectangleShape booty;
 	const string FAMAS_0 = "Content\\FAMAS\\FAMAS_0";
 	vector<std::string> famasFiles;
-	famasFiles.push_back(FAMAS_0 + "0.png");
+	/*famasFiles.push_back(FAMAS_0 + "0.png");
 	famasFiles.push_back(FAMAS_0 + "1.png");
 	famasFiles.push_back(FAMAS_0 + "2.png");
 	famasFiles.push_back(FAMAS_0 + "3.png");
@@ -18,7 +17,8 @@ Player::Player()
 	famasFiles.push_back(FAMAS_0 + "6.png");
 	famasFiles.push_back(FAMAS_0 + "7.png");
 	famasFiles.push_back(FAMAS_0 + "8.png");
-	famasFiles.push_back(FAMAS_0 + "9.png");
+	famasFiles.push_back(FAMAS_0 + "9.png");*/
+	famasFiles.push_back("Content\\platform_red.jpg");
 	this->animationSet = new AnimationList(this->body, 32.f, famasFiles);
 
 	body.setSize(sf::Vector2f(65, 32));

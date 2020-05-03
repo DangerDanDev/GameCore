@@ -12,10 +12,13 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 
     Player player;
+    sf::View view;
+    view.setCenter(player.getPosition());
 
     sf::Texture platformTexture;
     platformTexture.loadFromFile("Content\\platform_grey.jpg");
     Platform platform(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(300, 200));
+    Platform platform2(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(500, 200));
 
     sf::Clock clock;
 
@@ -38,8 +41,13 @@ int main()
 
         Collider playerCollider = player.getCollider();
         platform.getCollider().checkCollision(playerCollider, 0.0f);
+        platform2.getCollider().checkCollision(playerCollider, 1.f);
+
+        view.setCenter(player.getPosition());
+        window.setView(view);
 
         platform.Draw(window);
+        platform2.Draw(window);
         player.draw(window);
 
         window.display();

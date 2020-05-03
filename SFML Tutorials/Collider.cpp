@@ -3,7 +3,7 @@
 Collider::Collider(sf::RectangleShape& body)
 	:body(body)
 {
-
+	body.setOrigin(body.getSize() / 2.f);
 }
 
 bool Collider::checkCollision(Collider& other, float push)
@@ -27,18 +27,32 @@ bool Collider::checkCollision(Collider& other, float push)
 		push = std::min(std::max(push, 0.0f), 1.0f);
 
 		//figure out whether the intersection is bigger on the X axis or the Y axis
-		//if the X collision is larger, we act on that.
-		if (abs(intersectX) < abs(intersectY))
+		//if the X collision is smaller, we act on that.
+		if (intersectX > intersectY)
 		{
-			move(intersectX * (1.f - push), 0.f);
-			other.move(-intersectX * push, 0.f);
+			if (deltaX > 0.f)
+			{
+				move(intersectX * (1.f - push), 0.f);
+				other.move(-intersectX * push, 0.f);
+			}
+			else
+			{
+				move(-intersectX * (1.f - push), 0.f);
+				other.move(intersectX * push, 0.f);
+			}
 		}
-
-		//push it out on the y axis
 		else
 		{
-			move(0.f, -intersectY * (1.f - push));
-			other.move(0.f, intersectY * push);
+			if (deltaY > 0.f)
+			{
+				move(0.f,intersectY * (1.f - push));
+				other.move(0.f,-intersectY * push);
+			}
+			else
+			{
+				move(0.f,-intersectY * (1.f - push));
+				other.move(0.f,intersectY * push);
+			}
 		}
 
 		return true;
