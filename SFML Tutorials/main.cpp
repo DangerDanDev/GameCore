@@ -23,6 +23,8 @@ int main()
     Platform platform2(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(500, 200));
     platform2.getCollider().setPushback(0.1f);
 
+    Platform platform3(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(0, 400));
+
 
     sf::Clock clock;
 
@@ -39,20 +41,17 @@ int main()
 
         window.clear(sf::Color::Cyan);
 
-
-
         player.update(deltaTime);
 
         Collider playerCollider = player.getCollider();
         Collider platform1Collider = platform.getCollider();
         Collider platform2Collider = platform2.getCollider();
-
-        //playerCollider.checkCollision(platform1Collider, 1.0f);
-        //playerCollider.checkCollision(platform2Collider, 1.0f);
+        Collider platform3Collider = platform3.getCollider();
 
         platform.getCollider().checkCollision(player.getCollider());
         platform2.getCollider().checkCollision(player.getCollider());
         platform.getCollider().checkCollision(platform2.getCollider());
+        player.getCollider().checkCollision(platform3.getCollider());
 
         view.setCenter(player.getPosition());
         window.setView(view);

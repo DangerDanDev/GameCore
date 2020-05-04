@@ -66,6 +66,8 @@ private:
 	// How much this object resists being pushed
 	// Higher number (maximum of one) indicates 
 	// higher difficulty of pushing.
+	// DEFAULTS to 1.F, indicating that by default, an 
+	// entity is immovable.
 	/////////////////////////
 	float pushBack = 1.f;
 };
