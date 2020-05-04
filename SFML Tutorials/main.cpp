@@ -12,13 +12,17 @@ int main()
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
 
     Player player;
+    player.getCollider().priority = Collider::Priority::Animate;
     sf::View view;
     view.setCenter(player.getPosition());
 
     sf::Texture platformTexture;
     platformTexture.loadFromFile("Content\\platform_grey.jpg");
     Platform platform(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(300, 200));
+    platform.getCollider().setPushback(0.9f);
     Platform platform2(&platformTexture, sf::Vector2f(200, 50), sf::Vector2f(500, 200));
+    platform2.getCollider().setPushback(0.1f);
+
 
     sf::Clock clock;
 
@@ -43,10 +47,12 @@ int main()
         Collider platform1Collider = platform.getCollider();
         Collider platform2Collider = platform2.getCollider();
 
-        playerCollider.checkCollision(platform1Collider, 1.0f);
-        playerCollider.checkCollision(platform2Collider, 1.0f);
-        //platform.getCollider().checkCollision(playerCollider, 0.0f);
-        //platform2.getCollider().checkCollision(playerCollider, 1.f);
+        //playerCollider.checkCollision(platform1Collider, 1.0f);
+        //playerCollider.checkCollision(platform2Collider, 1.0f);
+
+        platform.getCollider().checkCollision(player.getCollider());
+        platform2.getCollider().checkCollision(player.getCollider());
+        platform.getCollider().checkCollision(platform2.getCollider());
 
         view.setCenter(player.getPosition());
         window.setView(view);
@@ -54,6 +60,7 @@ int main()
         platform.Draw(window);
         platform2.Draw(window);
         player.draw(window);
+        platform3.Draw(window);
 
         window.display();
     }

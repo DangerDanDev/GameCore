@@ -1,4 +1,8 @@
 #include "Collider.h"
+#include <iostream>
+
+using std::cout;
+using std::endl;
 
 Collider::Collider(sf::RectangleShape& body)
 	:body(body)
@@ -8,8 +12,22 @@ Collider::Collider(sf::RectangleShape& body)
 
 float clamp(float push, float min, float max);
 
-bool Collider::checkCollision(Collider& other, float push)
+bool Collider::checkCollision(Collider& other)
 {
+	//if either entity does not have collision enabled,
+	//we must return false
+	if (!this->enabled || !other.enabled)
+		return false;
+
+	//if neither object is moveable, they will simply phase through each other
+	if (this->immovable && other.immovable)
+		return false;
+
+	//we want to compute the collision from the point of view of whichever collider has a higher
+	//animate/inanimate preference
+	if (other.priority > this->priority)
+		return other.checkCollision(*this);
+
 	//find the difference between my center and the other objects center
 	sf::Vector2f delta = this->getPosition() - other.getPosition();
 
@@ -20,8 +38,6 @@ bool Collider::checkCollision(Collider& other, float push)
 	//if our delta is smaller than the combined half sizes of each collider, a collision has occurred
 	if (abs(delta.x) - combinedHalfSize.x < 0 && abs(delta.y) - combinedHalfSize.y < 0)
 	{
-		//push must be between 0 and 1
-		push = clamp(push, 0.f, 1.f);
 
 		//this is the value we need in order to physically separate the two entities
 		//the difference in abs(centers) - the combined half sizes of the colliders
@@ -31,30 +47,55 @@ bool Collider::checkCollision(Collider& other, float push)
 		// on the x axis, we do so
 		if (abs(intersect.x) <= abs(intersect.y))
 		{
+
 			//if I'm to the left of the other collider, we move left
-			if(delta.x < 0)
-				this->move(intersect.x, 0);
+			if (delta.x < 0)
+			{
+				//but my movement is impeded by a magnitude equal to the other entity's pushback
+				this->move(intersect.x * (other.pushBack), 0);
+				other.move(-intersect.x * (1.f - other.pushBack), 0);
+			}
+
 			//if I'm not to the left, I'm to the right, so we move right
 			else
-				this->move(-intersect.x, 0);
+			{
+				this->move(-intersect.x * (other.pushBack), 0);
+				other.move(intersect.x * (1.f - other.pushBack), 0);
+			}
+
 		}
+
 		//otherwise we resolve on the Y axis
 		else
 		{
+
 			//if I'm above the other rectangle, we'll move up
 			if (delta.y < 0)
-				this->move(0, intersect.y);
+			{
+				this->move(0, intersect.y * (other.pushBack));
+				other.move(0, -intersect.y * (1.f - other.pushBack));
+			}
+
 			//if I'm below it, we'll move down
 			else
-				this->move(0, -intersect.y);
+			{
+				this->move(0, -intersect.y * other.pushBack);
+				other.move(0, intersect.y * (1.f - other.pushBack));
+			}
 		}
 
 		return true;
 	}
 
 	return false;
+}
 
-
+void Collider::setPushback(float pb)
+{
+	if (pb > 1.f || pb < 0.f)
+		cout << "pushback must be between 0.f and 1.f!" << endl;
+	
+	this->pushBack = clamp(pb, 0.f, 1.f);
 }
 
 bool Collider::oldCheckCollision(Collider& other, float push)

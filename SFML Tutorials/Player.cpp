@@ -5,6 +5,7 @@ using std::string;
 using std::vector;
 
 Player::Player()
+	:collider(body)
 {
 	const string FAMAS_0 = "Content\\FAMAS\\FAMAS_0";
 	vector<std::string> famasFiles;
@@ -22,6 +23,7 @@ Player::Player()
 	this->animationSet = new AnimationList(this->body, 32.f, famasFiles);
 
 	body.setSize(sf::Vector2f(65, 32));
+	body.setOrigin(body.getSize() / 2.f);
 }
 
 void Player::update(float deltaTime)
@@ -55,7 +57,7 @@ Player::~Player()
 	delete this->animationSet;
 }
 
-Collider Player::getCollider()
+Collider& Player::getCollider()
 {
-	return Collider(body);
+	return this->collider;
 }

@@ -8,10 +8,12 @@ public:
 
 	void Draw(sf::RenderWindow& window);
 
-	Collider getCollider() { return Collider(body); }
+	Collider& getCollider();
 
 private:
 
 	sf::RectangleShape body;
+
+	Collider collider;
 };
 

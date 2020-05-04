@@ -15,15 +15,15 @@ public:
 
 	~Player();
 
-	Collider getCollider();
+	Collider& getCollider();
 
 private:
 	sf::RectangleShape body;
 	AnimationList *animationSet;
 
-	
+	Collider collider;
 
-	const float SPEED = 100;
+	const float SPEED = 250;
 
 };
 
